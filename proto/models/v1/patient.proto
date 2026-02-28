@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package models.v1;
+
+option go_package = "github.com/MediStatTech/dashboard-client/pb/go/models/v1";
+
+import "models/v1/contact_info.proto";
+import "models/v1/address.proto";
+import "models/v1/diseas.proto";
+import "models/v1/sensor.proto";
+
+message Patient {
+  message ListItem {
+    string patient_id = 1;
+    string first_name = 2;
+    string last_name = 3;
+    string gender = 4;
+    string dob = 5;
+    string status = 6;
+  }
+
+  message Read {
+    string patient_id = 1;
+    string first_name = 2;
+    string last_name = 3;
+    string gender = 4;
+    string dob = 5;
+    string status = 6;
+    ContactInfo contact_info = 7;
+    Address address = 8;
+    repeated Diseas diseases = 9;
+    repeated Sensor sensors = 10;
+  }
+
+  message Create {
+    string first_name = 1;
+    string last_name = 2;
+    string gender = 3;
+    string dob = 4;
+    CreateContactInfo contact_info = 5;
+    CreateAddress address = 6;
+    repeated string diseas_ids = 7;
+  }
+}

@@ -1,9 +1,0 @@
-syntax = "proto3";
-
-package dashboard.service.v1.services;
-
-option go_package = "github.com/MediStatTech/dashboard-client/pb/go/dashboard/service/v1/services";
-option swift_prefix = "";
-
-service AuthService {
-}

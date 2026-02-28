@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package services.v1;
+
+option go_package = "github.com/MediStatTech/dashboard-client/pb/go/services/v1";
+
+import "models/v1/staff.proto";
+
+// =====================
+// StaffService
+// =====================
+service StaffService {
+  rpc StaffRetrieve(StaffRetrieveRequest) returns (StaffRetrieveReply);
+}
+
+// =====================
+// StaffRetrieve
+// =====================
+message StaffRetrieveRequest {}
+
+message StaffRetrieveReply {
+  models.v1.Staff.Read staff = 1;
+}

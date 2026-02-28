@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package models.v1;
+
+option go_package = "github.com/MediStatTech/dashboard-client/pb/go/models/v1";
+
+import "models/v1/position.proto";
+
+message Staff {
+  message Read {
+    string staff_id = 1;
+    string first_name = 2;
+    string last_name = 3;
+    optional string selfie_url = 4;
+    optional string selfie_thumb_url = 5;
+    string status = 6;
+    string email = 7;
+    Position position = 8;
+  }
+}

@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package services.v1;
+
+option go_package = "github.com/MediStatTech/dashboard-client/pb/go/services/v1";
+
+// =====================
+// AuthService
+// =====================
+service AuthService {
+  rpc SignIn(SignInRequest) returns (SignInReply);
+}
+
+// =====================
+// SignIn
+// =====================
+message SignInRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message SignInReply {
+  string token = 1;
+}

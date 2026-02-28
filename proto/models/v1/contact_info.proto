@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package models.v1;
+
+option go_package = "github.com/MediStatTech/dashboard-client/pb/go/models/v1";
+
+message ContactInfo {
+  string contact_id = 1;
+  string phone = 2;
+  string email = 3;
+  bool primary = 4;
+}
+
+message CreateContactInfo {
+  string phone = 1;
+  string email = 2;
+  bool primary = 3;
+}

@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package models.v1;
+
+option go_package = "github.com/MediStatTech/dashboard-client/pb/go/models/v1";
+
+message Diseas {
+  string diseas_id = 1;
+  string name = 2;
+  string code = 3;
+}

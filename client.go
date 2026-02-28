@@ -3,8 +3,9 @@ package client
 import (
 	"fmt"
 
+	"github.com/MediStatTech/dashboard-client/client_options"
+	services_v1 "github.com/MediStatTech/dashboard-client/pb/go/services/v1"
 	log "github.com/MediStatTech/logger"
-	"github.com/MediStatTech/patient-client/client_options"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	xdscreds "google.golang.org/grpc/credentials/xds"
@@ -15,7 +16,10 @@ type Facade struct {
 	conn *grpc.ClientConn
 	log  *log.Logger
 
-	// Services clients
+	Auth    services_v1.AuthServiceClient
+	Staff   services_v1.StaffServiceClient
+	Patient services_v1.PatientServiceClient
+	Diseas  services_v1.DiseasServiceClient
 }
 
 func New(
@@ -28,24 +32,19 @@ func New(
 		target = o.AddressName
 	} else {
 		// XDS service discovery for production
-		// This will resolve to the service endpoint via xDS control plane
 		target = "todo-service.svc.cluster.local:8443"
 	}
 
 	// Connection options
 	dialOpts := []grpc.DialOption{
-		grpc.WithDefaultServiceConfig(`{"loadBalancingPolicy":"round_robin"}`), // Load balancing
+		grpc.WithDefaultServiceConfig(`{"loadBalancingPolicy":"round_robin"}`),
 	}
 
-	// For development, use insecure connection
-	// For production with XDS, use XDS credentials with insecure fallback
 	if o.ENV != nil && o.ENV.IsDev() {
 		dialOpts = append(dialOpts, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	} else if o.AddressName != "" && (len(o.AddressName) < 6 || o.AddressName[:6] != "xds://") {
-		// Custom non-XDS address, use insecure
 		dialOpts = append(dialOpts, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	} else {
-		// For XDS addresses in non-dev environments, use XDS credentials
 		creds, err := xdscreds.NewClientCredentials(xdscreds.ClientOptions{
 			FallbackCreds: insecure.NewCredentials(),
 		})
@@ -57,20 +56,24 @@ func New(
 
 	conn, err := grpc.NewClient(target, dialOpts...)
 	if err != nil {
-		o.Log.Error("Failed to connect to auth service", map[string]interface{}{
+		o.Log.Error("Failed to connect to dashboard service", map[string]interface{}{
 			"target": target,
 			"error":  err.Error(),
 		})
 		return nil, err
 	}
 
-	o.Log.Info("Connected to auth service", map[string]interface{}{
+	o.Log.Info("Connected to dashboard service", map[string]interface{}{
 		"target": target,
 	})
 
 	return &Facade{
-		conn: conn,
-		log:  o.Log,
+		conn:    conn,
+		log:     o.Log,
+		Auth:    services_v1.NewAuthServiceClient(conn),
+		Staff:   services_v1.NewStaffServiceClient(conn),
+		Patient: services_v1.NewPatientServiceClient(conn),
+		Diseas:  services_v1.NewDiseasServiceClient(conn),
 	}, nil
 }
 

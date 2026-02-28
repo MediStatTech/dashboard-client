@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package services.v1;
+
+option go_package = "github.com/MediStatTech/dashboard-client/pb/go/services/v1";
+
+import "models/v1/patient.proto";
+
+// =====================
+// PatientService
+// =====================
+service PatientService {
+  rpc PatientGet(PatientGetRequest) returns (PatientGetReply);
+  rpc PatientRetrieve(PatientRetrieveRequest) returns (PatientRetrieveReply);
+  rpc PatientCreate(PatientCreateRequest) returns (PatientCreateReply);
+}
+
+// =====================
+// PatientGet
+// =====================
+message PatientGetRequest {}
+
+message PatientGetReply {
+  repeated models.v1.Patient.ListItem patients = 1;
+}
+
+// =====================
+// PatientRetrieve
+// =====================
+message PatientRetrieveRequest {
+  string patient_id = 1;
+}
+
+message PatientRetrieveReply {
+  models.v1.Patient.Read patient = 1;
+}
+
+// =====================
+// PatientCreate
+// =====================
+message PatientCreateRequest {
+  models.v1.Patient.Create patient = 1;
+}
+
+message PatientCreateReply {
+  models.v1.Patient.Read patient = 1;
+}
