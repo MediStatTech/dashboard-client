@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-package services.v1;
+package dashboard.services.v1;
 
 option go_package = "github.com/MediStatTech/dashboard-client/pb/go/services/v1";
 
-import "models/v1/patient.proto";
+import "models/v1/patient_dash.proto";
 
 // =====================
 // PatientService
@@ -21,7 +21,7 @@ service PatientService {
 message PatientGetRequest {}
 
 message PatientGetReply {
-  repeated models.v1.Patient.ListItem patients = 1;
+  repeated dashboard.models.v1.Patient.ListItem patients = 1;
 }
 
 // =====================
@@ -32,16 +32,16 @@ message PatientRetrieveRequest {
 }
 
 message PatientRetrieveReply {
-  models.v1.Patient.Read patient = 1;
+  dashboard.models.v1.Patient.Read patient = 1;
 }
 
 // =====================
 // PatientCreate
 // =====================
 message PatientCreateRequest {
-  models.v1.Patient.Create patient = 1;
+  dashboard.models.v1.Patient.Create patient = 1;
 }
 
 message PatientCreateReply {
-  models.v1.Patient.Read patient = 1;
+  dashboard.models.v1.Patient.Read patient = 1;
 }

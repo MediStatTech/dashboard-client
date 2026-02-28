@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package models.v1;
+package dashboard.models.v1;
 
 option go_package = "github.com/MediStatTech/dashboard-client/pb/go/models/v1";
 

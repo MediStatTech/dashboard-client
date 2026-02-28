@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             (unknown)
-// source: services/v1/staff.proto
+// source: services/v1/staff_dash.proto
 
 package v1
 
@@ -19,7 +19,7 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	StaffService_StaffRetrieve_FullMethodName = "/services.v1.StaffService/StaffRetrieve"
+	StaffService_StaffRetrieve_FullMethodName = "/dashboard.services.v1.StaffService/StaffRetrieve"
 )
 
 // StaffServiceClient is the client API for StaffService service.
@@ -94,7 +94,7 @@ func _StaffService_StaffRetrieve_Handler(srv interface{}, ctx context.Context, d
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var StaffService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "services.v1.StaffService",
+	ServiceName: "dashboard.services.v1.StaffService",
 	HandlerType: (*StaffServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -103,5 +103,5 @@ var StaffService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "services/v1/staff.proto",
+	Metadata: "services/v1/staff_dash.proto",
 }

@@ -1,13 +1,13 @@
 syntax = "proto3";
 
-package models.v1;
+package dashboard.models.v1;
 
 option go_package = "github.com/MediStatTech/dashboard-client/pb/go/models/v1";
 
-import "models/v1/contact_info.proto";
-import "models/v1/address.proto";
-import "models/v1/diseas.proto";
-import "models/v1/sensor.proto";
+import "models/v1/contact_info_dash.proto";
+import "models/v1/address_dash.proto";
+import "models/v1/diseas_dash.proto";
+import "models/v1/sensor_dash.proto";
 
 message Patient {
   message ListItem {

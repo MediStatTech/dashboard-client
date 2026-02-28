@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             (unknown)
-// source: services/v1/patient.proto
+// source: services/v1/patient_dash.proto
 
 package v1
 
@@ -19,9 +19,9 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	PatientService_PatientGet_FullMethodName      = "/services.v1.PatientService/PatientGet"
-	PatientService_PatientRetrieve_FullMethodName = "/services.v1.PatientService/PatientRetrieve"
-	PatientService_PatientCreate_FullMethodName   = "/services.v1.PatientService/PatientCreate"
+	PatientService_PatientGet_FullMethodName      = "/dashboard.services.v1.PatientService/PatientGet"
+	PatientService_PatientRetrieve_FullMethodName = "/dashboard.services.v1.PatientService/PatientRetrieve"
+	PatientService_PatientCreate_FullMethodName   = "/dashboard.services.v1.PatientService/PatientCreate"
 )
 
 // PatientServiceClient is the client API for PatientService service.
@@ -160,7 +160,7 @@ func _PatientService_PatientCreate_Handler(srv interface{}, ctx context.Context,
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var PatientService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "services.v1.PatientService",
+	ServiceName: "dashboard.services.v1.PatientService",
 	HandlerType: (*PatientServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -177,5 +177,5 @@ var PatientService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "services/v1/patient.proto",
+	Metadata: "services/v1/patient_dash.proto",
 }

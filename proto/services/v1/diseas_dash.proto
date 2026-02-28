@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-package services.v1;
+package dashboard.services.v1;
 
 option go_package = "github.com/MediStatTech/dashboard-client/pb/go/services/v1";
 
-import "models/v1/diseas.proto";
+import "models/v1/diseas_dash.proto";
 
 // =====================
 // DiseasService
@@ -19,5 +19,5 @@ service DiseasService {
 message DiseasGetRequest {}
 
 message DiseasGetReply {
-  repeated models.v1.Diseas diseases = 1;
+  repeated dashboard.models.v1.Diseas diseases = 1;
 }
