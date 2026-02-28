@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package common.v1.options;
+
+import "google/protobuf/descriptor.proto";
+
+option go_package = "github.com/MediDrive-Tech/nemt-proto/pb/go/common/v1/options";
+option optimize_for = SPEED;
+option swift_prefix = "";
+
+extend google.protobuf.EnumValueOptions {
+  optional string friendly_string = 50002;
+}

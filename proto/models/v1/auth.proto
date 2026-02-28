@@ -1,0 +1,6 @@
+syntax = "proto3";
+
+package dashboard.service.v1.models;
+
+option go_package = "github.com/MediStatTech/dashboard-client/pb/go/dashboard/service/v1/models";
+option swift_prefix = "";
