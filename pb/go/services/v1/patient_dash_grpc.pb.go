@@ -19,9 +19,10 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	PatientService_PatientGet_FullMethodName      = "/dashboard.services.v1.PatientService/PatientGet"
-	PatientService_PatientRetrieve_FullMethodName = "/dashboard.services.v1.PatientService/PatientRetrieve"
-	PatientService_PatientCreate_FullMethodName   = "/dashboard.services.v1.PatientService/PatientCreate"
+	PatientService_PatientGet_FullMethodName          = "/dashboard.services.v1.PatientService/PatientGet"
+	PatientService_PatientRetrieve_FullMethodName     = "/dashboard.services.v1.PatientService/PatientRetrieve"
+	PatientService_PatientCreate_FullMethodName       = "/dashboard.services.v1.PatientService/PatientCreate"
+	PatientService_PatientPanicTrigger_FullMethodName = "/dashboard.services.v1.PatientService/PatientPanicTrigger"
 )
 
 // PatientServiceClient is the client API for PatientService service.
@@ -31,6 +32,7 @@ type PatientServiceClient interface {
 	PatientGet(ctx context.Context, in *PatientGetRequest, opts ...grpc.CallOption) (*PatientGetReply, error)
 	PatientRetrieve(ctx context.Context, in *PatientRetrieveRequest, opts ...grpc.CallOption) (*PatientRetrieveReply, error)
 	PatientCreate(ctx context.Context, in *PatientCreateRequest, opts ...grpc.CallOption) (*PatientCreateReply, error)
+	PatientPanicTrigger(ctx context.Context, in *PatientPanicTriggerRequest, opts ...grpc.CallOption) (*PatientPanicTriggerReply, error)
 }
 
 type patientServiceClient struct {
@@ -68,6 +70,15 @@ func (c *patientServiceClient) PatientCreate(ctx context.Context, in *PatientCre
 	return out, nil
 }
 
+func (c *patientServiceClient) PatientPanicTrigger(ctx context.Context, in *PatientPanicTriggerRequest, opts ...grpc.CallOption) (*PatientPanicTriggerReply, error) {
+	out := new(PatientPanicTriggerReply)
+	err := c.cc.Invoke(ctx, PatientService_PatientPanicTrigger_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // PatientServiceServer is the server API for PatientService service.
 // All implementations should embed UnimplementedPatientServiceServer
 // for forward compatibility
@@ -75,6 +86,7 @@ type PatientServiceServer interface {
 	PatientGet(context.Context, *PatientGetRequest) (*PatientGetReply, error)
 	PatientRetrieve(context.Context, *PatientRetrieveRequest) (*PatientRetrieveReply, error)
 	PatientCreate(context.Context, *PatientCreateRequest) (*PatientCreateReply, error)
+	PatientPanicTrigger(context.Context, *PatientPanicTriggerRequest) (*PatientPanicTriggerReply, error)
 }
 
 // UnimplementedPatientServiceServer should be embedded to have forward compatible implementations.
@@ -89,6 +101,9 @@ func (UnimplementedPatientServiceServer) PatientRetrieve(context.Context, *Patie
 }
 func (UnimplementedPatientServiceServer) PatientCreate(context.Context, *PatientCreateRequest) (*PatientCreateReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PatientCreate not implemented")
+}
+func (UnimplementedPatientServiceServer) PatientPanicTrigger(context.Context, *PatientPanicTriggerRequest) (*PatientPanicTriggerReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PatientPanicTrigger not implemented")
 }
 
 // UnsafePatientServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -156,6 +171,24 @@ func _PatientService_PatientCreate_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PatientService_PatientPanicTrigger_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PatientPanicTriggerRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PatientServiceServer).PatientPanicTrigger(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PatientService_PatientPanicTrigger_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PatientServiceServer).PatientPanicTrigger(ctx, req.(*PatientPanicTriggerRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // PatientService_ServiceDesc is the grpc.ServiceDesc for PatientService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -174,6 +207,10 @@ var PatientService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "PatientCreate",
 			Handler:    _PatientService_PatientCreate_Handler,
+		},
+		{
+			MethodName: "PatientPanicTrigger",
+			Handler:    _PatientService_PatientPanicTrigger_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
