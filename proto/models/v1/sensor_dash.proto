@@ -5,6 +5,7 @@ package dashboard.models.v1;
 option go_package = "github.com/MediStatTech/dashboard-client/pb/go/models/v1";
 
 import "models/v1/metric_type_dash.proto";
+import "models/v1/measurement_dash.proto";
 
 message Sensor {
   string sensor_id = 1;
@@ -13,4 +14,5 @@ message Sensor {
   string symbol    = 4;
   string status    = 5;
   repeated MetricType metric_types = 6;
+  repeated Measurement measurements = 7;
 }
