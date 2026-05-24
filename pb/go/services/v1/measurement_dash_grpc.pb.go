@@ -19,7 +19,8 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	MeasurementService_MeasurementGet_FullMethodName = "/dashboard.services.v1.MeasurementService/MeasurementGet"
+	MeasurementService_MeasurementGet_FullMethodName        = "/dashboard.services.v1.MeasurementService/MeasurementGet"
+	MeasurementService_MeasurementHistoryGet_FullMethodName = "/dashboard.services.v1.MeasurementService/MeasurementHistoryGet"
 )
 
 // MeasurementServiceClient is the client API for MeasurementService service.
@@ -27,6 +28,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type MeasurementServiceClient interface {
 	MeasurementGet(ctx context.Context, in *MeasurementGetRequest, opts ...grpc.CallOption) (*MeasurementGetReply, error)
+	MeasurementHistoryGet(ctx context.Context, in *MeasurementHistoryGetRequest, opts ...grpc.CallOption) (*MeasurementHistoryGetReply, error)
 }
 
 type measurementServiceClient struct {
@@ -46,11 +48,21 @@ func (c *measurementServiceClient) MeasurementGet(ctx context.Context, in *Measu
 	return out, nil
 }
 
+func (c *measurementServiceClient) MeasurementHistoryGet(ctx context.Context, in *MeasurementHistoryGetRequest, opts ...grpc.CallOption) (*MeasurementHistoryGetReply, error) {
+	out := new(MeasurementHistoryGetReply)
+	err := c.cc.Invoke(ctx, MeasurementService_MeasurementHistoryGet_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MeasurementServiceServer is the server API for MeasurementService service.
 // All implementations should embed UnimplementedMeasurementServiceServer
 // for forward compatibility
 type MeasurementServiceServer interface {
 	MeasurementGet(context.Context, *MeasurementGetRequest) (*MeasurementGetReply, error)
+	MeasurementHistoryGet(context.Context, *MeasurementHistoryGetRequest) (*MeasurementHistoryGetReply, error)
 }
 
 // UnimplementedMeasurementServiceServer should be embedded to have forward compatible implementations.
@@ -59,6 +71,9 @@ type UnimplementedMeasurementServiceServer struct {
 
 func (UnimplementedMeasurementServiceServer) MeasurementGet(context.Context, *MeasurementGetRequest) (*MeasurementGetReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method MeasurementGet not implemented")
+}
+func (UnimplementedMeasurementServiceServer) MeasurementHistoryGet(context.Context, *MeasurementHistoryGetRequest) (*MeasurementHistoryGetReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method MeasurementHistoryGet not implemented")
 }
 
 // UnsafeMeasurementServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -90,6 +105,24 @@ func _MeasurementService_MeasurementGet_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _MeasurementService_MeasurementHistoryGet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MeasurementHistoryGetRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MeasurementServiceServer).MeasurementHistoryGet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: MeasurementService_MeasurementHistoryGet_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MeasurementServiceServer).MeasurementHistoryGet(ctx, req.(*MeasurementHistoryGetRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // MeasurementService_ServiceDesc is the grpc.ServiceDesc for MeasurementService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -100,6 +133,10 @@ var MeasurementService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "MeasurementGet",
 			Handler:    _MeasurementService_MeasurementGet_Handler,
+		},
+		{
+			MethodName: "MeasurementHistoryGet",
+			Handler:    _MeasurementService_MeasurementHistoryGet_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

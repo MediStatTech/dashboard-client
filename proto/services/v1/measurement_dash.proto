@@ -4,10 +4,12 @@ package dashboard.services.v1;
 
 option go_package = "github.com/MediStatTech/dashboard-client/pb/go/services/v1";
 
+import "google/protobuf/timestamp.proto";
 import "models/v1/measurement_dash.proto";
 
 service MeasurementService {
   rpc MeasurementGet(MeasurementGetRequest) returns (MeasurementGetReply);
+  rpc MeasurementHistoryGet(MeasurementHistoryGetRequest) returns (MeasurementHistoryGetReply);
 }
 
 message MeasurementGetRequest {
@@ -17,4 +19,18 @@ message MeasurementGetRequest {
 
 message MeasurementGetReply {
   repeated dashboard.models.v1.Measurement measurements = 1;
+}
+
+message MeasurementHistoryGetRequest {
+  string sensor_id  = 1;
+  string patient_id = 2;
+  google.protobuf.Timestamp start_time = 3;
+  google.protobuf.Timestamp end_time   = 4;
+  int32 limit  = 5;
+  int32 offset = 6;
+}
+
+message MeasurementHistoryGetReply {
+  repeated dashboard.models.v1.Measurement measurements = 1;
+  int32 total = 2;
 }
