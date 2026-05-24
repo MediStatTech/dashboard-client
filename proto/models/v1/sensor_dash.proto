@@ -4,19 +4,13 @@ package dashboard.models.v1;
 
 option go_package = "github.com/MediStatTech/dashboard-client/pb/go/models/v1";
 
-import "google/protobuf/timestamp.proto";
+import "models/v1/metric_type_dash.proto";
 
 message Sensor {
   string sensor_id = 1;
-  string name = 2;
-  string code = 3;
-  string symbol = 4;
-  string status = 5;
-  repeated Metric metrics = 6;
-}
-
-message Metric {
-  double value = 1;
-  string symbol = 2;
-  google.protobuf.Timestamp created_at = 3;
+  string name      = 2;
+  string code      = 3;
+  string symbol    = 4;
+  string status    = 5;
+  repeated MetricType metric_types = 6;
 }

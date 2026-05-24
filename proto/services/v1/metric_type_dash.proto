@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package dashboard.services.v1;
+
+option go_package = "github.com/MediStatTech/dashboard-client/pb/go/services/v1";
+
+import "models/v1/metric_type_dash.proto";
+
+service MetricTypeService {
+  rpc MetricTypeGet(MetricTypeGetRequest) returns (MetricTypeGetReply);
+  rpc MetricTypeCreate(MetricTypeCreateRequest) returns (MetricTypeCreateReply);
+}
+
+message MetricTypeGetRequest {
+  string sensor_id = 1;
+}
+
+message MetricTypeGetReply {
+  repeated dashboard.models.v1.MetricType metric_types = 1;
+}
+
+message MetricTypeCreateRequest {
+  string sensor_id = 1;
+  string code      = 2;
+  string name      = 3;
+  string symbol    = 4;
+  double min_value = 5;
+  double max_value = 6;
+}
+
+message MetricTypeCreateReply {
+  dashboard.models.v1.MetricType metric_type = 1;
+}

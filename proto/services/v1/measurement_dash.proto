@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package dashboard.services.v1;
+
+option go_package = "github.com/MediStatTech/dashboard-client/pb/go/services/v1";
+
+import "models/v1/measurement_dash.proto";
+
+service MeasurementService {
+  rpc MeasurementGet(MeasurementGetRequest) returns (MeasurementGetReply);
+}
+
+message MeasurementGetRequest {
+  string sensor_id  = 1;
+  string patient_id = 2;
+}
+
+message MeasurementGetReply {
+  repeated dashboard.models.v1.Measurement measurements = 1;
+}

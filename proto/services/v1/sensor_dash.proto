@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package dashboard.services.v1;
+
+option go_package = "github.com/MediStatTech/dashboard-client/pb/go/services/v1";
+
+import "models/v1/sensor_dash.proto";
+
+service SensorService {
+  rpc SensorGet(SensorGetRequest) returns (SensorGetReply);
+  rpc SensorCreate(SensorCreateRequest) returns (SensorCreateReply);
+}
+
+message SensorGetRequest {}
+
+message SensorGetReply {
+  repeated dashboard.models.v1.Sensor sensors = 1;
+}
+
+message SensorCreateRequest {
+  string name   = 1;
+  string code   = 2;
+  string symbol = 3;
+}
+
+message SensorCreateReply {
+  dashboard.models.v1.Sensor sensor = 1;
+}

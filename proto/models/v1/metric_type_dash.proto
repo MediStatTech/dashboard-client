@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package dashboard.models.v1;
+
+option go_package = "github.com/MediStatTech/dashboard-client/pb/go/models/v1";
+
+message MetricType {
+  string metric_type_id = 1;
+  string sensor_id      = 2;
+  string code           = 3;
+  string name           = 4;
+  string symbol         = 5;
+  double min_value      = 6;
+  double max_value      = 7;
+}

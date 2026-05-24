@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package dashboard.models.v1;
+
+option go_package = "github.com/MediStatTech/dashboard-client/pb/go/models/v1";
+
+import "google/protobuf/timestamp.proto";
+
+message Measurement {
+  string sensor_id  = 1;
+  string patient_id = 2;
+  google.protobuf.Timestamp created_at = 3;
+  repeated Component components = 4;
+}
+
+message Component {
+  string metric_type_id = 1;
+  string code           = 2;
+  string name           = 3;
+  double value          = 4;
+  string symbol         = 5;
+}
